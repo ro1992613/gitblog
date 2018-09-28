@@ -1,6 +1,8 @@
 <template>
 <el-container>
-  <el-header>Header</el-header>
+  <el-header style="background-color: #0c79b1;padding-top:8px;">
+    <span><i class="el-icon-setting"></i> GitBlog</span>
+  </el-header>
   <el-container>
     <el-aside style="width:200px;">
         <el-menu router="true">
@@ -24,8 +26,9 @@
 .el-header {
   background-color: #b3c0d1;
   color: #333;
-  text-align: center;
-  height: 200px;
+  text-align: left;
+  font-size: 35px;
+  font-weight: bolder;
 }
 
 .el-aside {

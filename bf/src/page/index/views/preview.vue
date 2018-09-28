@@ -1,7 +1,8 @@
 <template>
     <el-card class="box-card">
         <div slot="header" class="clearfix">
-            <span>{{title}}</span>
+            <router-link :to="{ path: '/menu/list'}"><a><i class="el-icon-back" style="float:left;"></i></a></router-link>
+            <span style="font-weight: bolder;"><i class="el-icon-tickets">{{title}}</i></span>
         </div>
         <div class="preview_class" v-html='content'></div>
     </el-card>

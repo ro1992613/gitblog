@@ -1,7 +1,7 @@
 <template>
 <el-card class="box-card">
   <div slot="header" style="text-align:left" class="clearfix">
-      <span>新增博客</span>
+      <span><i class="el-icon-edit">新增博客</i></span>
   </div>
   <div style="margin-bottom:10px;">
     <el-input v-model="title" placeholder="请输入标题"></el-input>

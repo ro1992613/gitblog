@@ -11,12 +11,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.gitblog.create.BlogCreater;
+
+import cn.hutool.core.io.FileUtil;
+
 @RestController
 @RequestMapping("/api/blog")
 public class BlogController {
     
     @Autowired
     JdbcTemplate jdbcTemplate;
+    
+    @Autowired
+    BlogCreater blogCreater;
     
     @PostMapping("/list")
     public List<Map<String,Object>> list() {
@@ -57,5 +64,12 @@ public class BlogController {
             e.printStackTrace();
         }
         return code;
+    }
+    @PostMapping("/create")
+    public String create() {
+        String sql="select * from blog";
+        List<Map<String,Object>> list=jdbcTemplate.queryForList(sql);
+        blogCreater.createBlog(list);
+        return FileUtil.getAbsolutePath("classpath:templates/assets/");
     }
 }
