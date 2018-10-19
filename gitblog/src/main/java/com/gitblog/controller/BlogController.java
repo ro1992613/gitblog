@@ -70,6 +70,7 @@ public class BlogController {
         String sql="select * from blog";
         List<Map<String,Object>> list=jdbcTemplate.queryForList(sql);
         blogCreater.createBlog(list);
+        blogCreater.createIndex(list);
         return FileUtil.getAbsolutePath("classpath:templates/assets/");
     }
 }
