@@ -7,6 +7,8 @@
       <el-table :data="tableData" stripe style="width: 100%;" >
         <el-table-column align="center" prop="ID" label="id">
         </el-table-column>
+        <el-table-column align="center"  prop="COLLECTION_NAME" label="合集">
+        </el-table-column>
         <el-table-column align="center"  prop="CREATE_TIME" label="日期">
         </el-table-column>
         <el-table-column align="center"  prop="TITLE" label="标题">

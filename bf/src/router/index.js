@@ -30,6 +30,11 @@ const menu={
       component: (resolve) => require(['../page/index/views/list.vue'], resolve)
     },
     {
+      path:'collection',
+      name:'collection',
+      component: (resolve) => require(['../page/index/views/collection.vue'], resolve)
+    },
+    {
       path:'preview',
       name:'preview',
       component: (resolve) => require(['../page/index/views/preview.vue'], resolve)

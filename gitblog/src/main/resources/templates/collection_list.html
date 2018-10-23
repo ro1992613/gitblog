@@ -27,49 +27,15 @@
                 <li><a href="collection.html">专辑</a></li>
                 <li><a target="_blank" href="https://github.com/ro1992613/gitblog">gitblog项目</a></li>
             </ul>
-
-            <div class="am-topbar-form am-topbar-right am-form-inline" role="search">
-                <div class="am-form-group">
-                    <input type="text" class="am-form-field am-input-sm" placeholder="搜索" id="search_value">
-                </div>
-                <div class="am-form-group">
-                        <button class="am-btn am-btn-default am-btn-sm" onclick="search()"><span class="am-icon-search"></span></button>
-                </div>
-            </div>
-
         </div>
     </header>
     <div style="width:100%;height: auto;display:flex;">
         <div style="flex:12;padding: 5px;height: auto;">         
             <div class="am-panel am-panel-default">
+                <div class="am-panel-hd" id="collection_name"></div>
                 <div class="am-panel-bd" style="height: auto;" id="article-list">
 
                 </div>
-                <ul data-am-widget="pagination"
-                class="am-pagination am-pagination-default">
-            
-                    <li class="am-pagination-first ">
-                    <a href="javascript:void(0);" class="" onclick="first_page()">第一页</a>
-                    </li>
-            
-                    <li class="am-pagination-prev ">
-                    <a href="javascript:void(0);" class="" onclick="previous_page()">上一页</a>
-                    </li>
-                    <li class="am-disabled"><a href="javascript:void(0);" id="page_info"></a></li>
-                    <li class="am-pagination-next ">
-                    <a href="javascript:void(0);" class="" onclick="next_page()">下一页</a>
-                    </li>
-            
-                    <li class="am-pagination-last ">
-                    <a href="javascript:void(0);" class="" onclick="last_page()">最末页</a>
-                    </li>
-                    <li>
-                        <input type="text" class="am-form-field" size="3" id="input_page_index">
-                    </li>
-                    <li class="am-pagination-last ">
-                        <a href="javascript:void(0);" class="" onclick="goto_page()">跳转</a>
-                    </li>
-                </ul>
             </div>
         </div>
         <div style="flex:4;padding: 5px;">
@@ -101,8 +67,6 @@
     <script src="assets/js/amazeui.min.js"></script>
     <script src="store.js"></script>
     <script>
-        var page_size=20;
-        var page_index=1;
         function addHtml(v){
             var html='';
             html=html+'<article class="blog-entry-article"><div class="blog-entry-text blog-text-center"> ';
@@ -118,92 +82,34 @@
         }
 
         function initList(){
+            var id=getQueryString("collection_id");
             $("#article-list").html("");
-            var length=data.length;
-            var max_page=Math.ceil(length/page_size);
-            $("#page_info").html("当前是第"+page_index+"页，共计"+max_page+"页");
-            if(page_index>max_page){
-                page_index=max_page;
-            }
-            var page=(page_index-1)*page_size;
-            for(var i=0;i<page_size;i++){
-                if(page<length){
-                    if(data[page]){
-                        var html=addHtml(data[page]);
-                        $("#article-list").append(html);
-                    }
-                }
-                page++;
-            }
-        }
-
-        function first_page(){
-            page_index=1;
-            initList();
-        }
-        function last_page(){
-            var length=data.length;
-            var max_page=Math.ceil(length/page_size);
-            page_index=max_page;
-            initList();
-        }
-        function previous_page(){
-            page_index--;
-            if(page_index<=1){
-                page_index=1;
-            }
-            initList();
-        }
-        function next_page(){
-            var length=data.length;
-            var max_page=Math.ceil(length/page_size);
-            page_index++;
-            if(page_index>=max_page){
-                page_index=max_page;
-            }
-            initList();
-        }
-        function goto_page(){
-            var length=data.length;
-            var max_page=Math.ceil(length/page_size);
-            var input_value=document.getElementById("input_page_index").value;
-            var re = /^[0-9]+.?[0-9]*/;//判断字符串是否为数字//判断正整数/[1−9]+[0−9]∗]∗/ 
-        　　if (!re.test(input_value)) { 
-        　　　　alert("请输入数字"); 
-        　　} else{
-                if(input_value<=1){
-                    input_value=1;
-                }
-                if(input_value>=max_page){
-                    input_value=max_page;
-                }
-                page_index=input_value;
-                initList();
-            }
-        }
-
-        function search(){
-            var count=0;
-            $("#article-list").html("");
-            var input_value=document.getElementById("search_value").value;
             data.map(function(v,index){
-                if(v.title.indexOf(input_value) != -1 ){
+                if(id==v.collection_id){
                     var html=addHtml(v);
                     $("#article-list").append(html);
-                    count++;
                 }
             });
-
-            $("#page_info").html("当前是第1页，共计"+count+"条");
         }
-
+        function getQueryString(name) {  
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");  
+            var r = window.location.search.substr(1).match(reg);  
+            if (r != null) return unescape(r[2]);  
+            return null;  
+        }  
         $(function() {
             initList();
+            var id=getQueryString("collection_id");
             $("#simple-list").html("");
             data.map(function(v,index){
                 if(index<=10){
                     var html=addHtml_simple(v);
                     $("#simple-list").append(html);
+                }
+            });
+            collection.map(function(v,index){
+                if(id==v.collection_id){
+                    $("#collection_name").append(v.collection_name);
                 }
             });
         });

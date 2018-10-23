@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>GitBlog</title>
+    <link rel="stylesheet" href="assets/css/amazeui.min.css">
+    <style>
+        html,body{
+          height: 100%;
+          width: 100%;  
+      }
+      a {
+          color:#474747;
+      }
+  </style>
+</head>
+
+<body>
+    <header class="am-topbar">
+        <h1 class="am-topbar-brand">
+            <a href="javascript:void(0);">GitBlog</a>
+        </h1>
+        <div class="am-collapse am-topbar-collapse">
+            <ul class="am-nav am-nav-pills am-topbar-nav">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="collection.html">专辑</a></li>
+                <li><a target="_blank" href="https://github.com/ro1992613/gitblog">gitblog项目</a></li>
+            </ul>
+        </div>
+    </header>
+    <div style="width:100%;height: auto;display:flex;">
+        <div style="flex:12;padding: 5px;height: auto;">         
+            <div class="am-panel am-panel-default">
+                <div class="am-panel-hd">专辑</div>
+                <div class="am-panel-bd" style="height: auto;">
+                    <ul class="am-list" id="collection-list">
+                      </ul>
+                </div>
+            </div>
+        </div>
+        <div style="flex:4;padding: 5px;">
+            <section class="am-panel am-panel-default">
+                <div class="am-panel-bd">
+                    <iframe height="50"  frameborder="0" scrolling="no" hspace="0"  src="https://i.tianqi.com/index.php?c=code&id=12&icon=1&num=2&site=12">
+                    </iframe> 
+                </div>
+            </section>
+            <section class="am-panel am-panel-default">
+                    <div class="am-panel-hd">关于项目</div>
+                    <div class="am-panel-bd">
+                        <p>做过很多个的博客了，发现自己做博客最大的问题就是，没钱！虽然也会买一些云服务器，但是还是觉得好贵啊！</p>
+                        <p>后来听说可以用github做博客，自己也折腾过hexo之类的东东，但始终用起来很不爽！毕竟是别人定制的东西，很多diy的地方都不是那么尽人意！</p>
+                        <p>所以最后决定自己写一个，反正git的页面就是些静态页面呗！自己写个内容管理系统还不是手到擒来！后台用springboot很容易就搞定了，数据库在几番研究后使用了非常轻量的嵌入式数据库，h2！然后数据移植的问题也搞定了！用vue随意搭了个管理页面，写上几个模板，新鲜出炉的gitblog就做好了！</p>
+                        <p>接下来，优化模板的样式，增加标签功能，把管理页面嵌入博客，加入评论！！！！</p>
+                        <a class="am-btn am-btn-success am-btn-sm"  target="_blank" href="https://github.com/ro1992613/gitblog">查看更多 →</a>
+                    </div>
+                    </section>
+                    <section class="am-panel am-panel-default">
+                    <div class="am-panel-hd">文章目录</div>
+                    <ul class="am-list blog-list" id="simple-list">
+                        <li><a href="#">Google fonts 的字體（sans-serif 篇）</a></li>
+                    </ul>
+                    </section>
+        </div>
+    </div>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/amazeui.min.js"></script>
+    <script src="store.js"></script>
+    <script>
+        function addHtml_simple(v){
+            var html='<li><a target="_blank" href="'+v.id+'.html"><i class="am-icon-book"></i>'+v.title+'</a></li>';
+            return html;
+        }
+
+        $(function() {
+            $("#simple-list").html("");
+            data.map(function(v,index){
+                if(index<=10){
+                    var html=addHtml_simple(v);
+                    $("#simple-list").append(html);
+                }
+            });
+            $("#collection-list").html("");
+            collection.map(function(v,index){
+                var html='<li><a href="collection_list.html?collection_id='+v.collection_id+'">'+v.collection_name+'</a></li>';
+                $("#collection-list").append(html);
+            });
+        });
+    </script>
+</body>
+</body>
+
+</html>

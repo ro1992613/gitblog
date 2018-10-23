@@ -10,6 +10,10 @@
               <i class="el-icon-menu"></i>
               <span slot="title">博客列表</span>
           </el-menu-item>
+          <el-menu-item route="/menu/collection" index="/menu/collection">
+              <i class="el-icon-menu"></i>
+              <span slot="title">合集管理</span>
+          </el-menu-item>
           <el-menu-item route="/menu/addText" index="/menu/addText">
               <i class="el-icon-menu"></i>
               <span slot="title">新增博客</span>
