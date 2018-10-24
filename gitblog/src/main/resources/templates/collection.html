@@ -13,6 +13,14 @@
       a {
           color:#474747;
       }
+    .box {
+        box-shadow: 5px 5px 2px #888888;
+        transition: all .2s ease;
+    }
+
+ .box:hover {
+  box-shadow: 10px 10px 5px #888888;
+}
   </style>
 </head>
 
@@ -32,12 +40,14 @@
     <div style="width:100%;height: auto;display:flex;">
         <div style="flex:12;padding: 5px;height: auto;">         
             <div class="am-panel am-panel-default">
-                <div class="am-panel-hd">专辑</div>
+                <div class="am-panel-hd">专辑列表</div>
                 <div class="am-panel-bd" style="height: auto;">
-                    <ul class="am-list" id="collection-list">
-                      </ul>
+                    <ul class="am-avg-sm-4" id="collection-list">
+        
+                    </ul>
                 </div>
             </div>
+            
         </div>
         <div style="flex:4;padding: 5px;">
             <section class="am-panel am-panel-default">
@@ -83,7 +93,11 @@
             });
             $("#collection-list").html("");
             collection.map(function(v,index){
-                var html='<li><a href="collection_list.html?collection_id='+v.collection_id+'">'+v.collection_name+'</a></li>';
+                var html='<li class="box"><div style="margin-bottom:2px;margin-left: 15px;" class="am-panel am-panel-primary">';
+                html=html+'<div class="am-panel-hd"><i class="am-icon-cog"></i>'+v.collection_name+'</div>';
+                html=html+'<div class="am-panel-bd" style="height: auto;">';
+                html=html+'<a style="width:100%" class="am-btn am-btn-primary" href="collection_list.html?collection_id='+v.collection_id+'" target="_blank">';
+                html=html+'<i class="am-icon-spinner am-icon-spin"></i>前往</a></div></div></li>';
                 $("#collection-list").append(html);
             });
         });
