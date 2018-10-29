@@ -27,7 +27,7 @@ public class BlogController {
     
     @PostMapping("/list")
     public List<Map<String,Object>> list() {
-        String sql="select * from blog";
+        String sql="select * from blog order by create_time desc";
         List<Map<String,Object>> list=jdbcTemplate.queryForList(sql);
         return list;
     }
@@ -60,7 +60,7 @@ public class BlogController {
         String id=params.get("id");
         String sql="delete from blog where id=?";
         jdbcTemplate.update(sql,id);
-        sql="select * from blog";
+        sql="select * from blog order by create_time desc";
         List<Map<String,Object>> list=jdbcTemplate.queryForList(sql);
         return list;
     }
@@ -105,7 +105,7 @@ public class BlogController {
     
     @PostMapping("/create")
     public String create() {
-        String sql="select * from blog";
+        String sql="select * from blog order by create_time desc";
         List<Map<String,Object>> list=jdbcTemplate.queryForList(sql);
         blogCreater.createBlog(list);
         blogCreater.createIndex(list);
@@ -137,7 +137,7 @@ public class BlogController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        sql="select id,title,description,create_time from blog";
+        sql="select id,title,description,create_time from blog order by create_time desc";
         List<Map<String,Object>> list=jdbcTemplate.queryForList(sql);
         return list;
     }

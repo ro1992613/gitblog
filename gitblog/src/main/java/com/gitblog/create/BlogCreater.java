@@ -84,11 +84,10 @@ public class BlogCreater {
         copyFileFromJar("templates/index.html", savepath+"/index.html");
         copyFileFromJar("templates/collection.html", savepath+"/collection.html");
         copyFileFromJar("templates/collection_list.html", savepath+"/collection_list.html");
-        
 
-        InputStream in = FileUtil.class.getClassLoader().getResourceAsStream("templates/blog.html");
-        try {
-            for(Map<String,Object> data:list) {
+        for(Map<String,Object> data:list) {
+            InputStream in = FileUtil.class.getClassLoader().getResourceAsStream("templates/blog.html");
+            try {
                 Document doc=Jsoup.parse(in, "utf-8","");
                 Element title = doc.select("span#gitblog_title").first(); // <div></div>
                 title.html(data.get("TITLE").toString()); 
@@ -99,10 +98,11 @@ public class BlogCreater {
                 Element date = doc.select("span#gitblog_date").first(); // <div></div>
                 date.html(data.get("CREATE_TIME").toString()); 
                 FileUtil.writeString(doc.toString(), savepath+"/"+data.get("id")+".html", "utf-8");
+            } catch (Exception e) {
+                // TODO: handle exception
+            } finally {
+                in.close();
             }
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
         }
     }
     
