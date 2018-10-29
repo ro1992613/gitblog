@@ -1,3 +1,7 @@
+[如何申请gitpages](https://jingyan.baidu.com/article/93f9803f345882e0e46f5589.html)
+
+[下载gitblog程序](https://github.com/ro1992613/gitblog/releases/download/0.0.1/gitblog-release.rar)
+
 1.配置application.properties下的：
 	文件生成目录gitblog.savepath
 	h2数据库地址spring.datasource.url
@@ -15,4 +19,3 @@
 注意：1.目前评论模块还没有彻底搞定，因为对大多数人来说有点复杂
 2.目前端口只能是8081，不要改了
 
-[下载](https://github.com/ro1992613/gitblog/releases/download/0.0.1/gitblog-release.rar)
