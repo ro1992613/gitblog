@@ -43,6 +43,21 @@ const menu={
       path:'wang',
       name:'wang',
       component: (resolve) => require(['../page/index/views/wang.vue'], resolve)
+    },
+    {
+      path:'tx_category',
+      name:'tx_category',
+      component: (resolve) => require(['../page/index/tx/tx_category.vue'], resolve)
+    },
+    {
+      path:'tx_list',
+      name:'tx_list',
+      component: (resolve) => require(['../page/index/tx/tx_list.vue'], resolve)
+    },
+    {
+      path:'tx_editor',
+      name:'tx_editor',
+      component: (resolve) => require(['../page/index/tx/tx_editor.vue'], resolve)
     }
   ]
 }

@@ -18,6 +18,23 @@
               <i class="el-icon-menu"></i>
               <span slot="title">新增博客</span>
           </el-menu-item>
+          <el-submenu index="/menu/tx_list">
+            <template slot="title">
+              <i class="el-icon-menu"></i>腾讯云
+            </template>
+            <el-menu-item route="/menu/tx_list" index="/menu/tx_list">
+              <i class="el-icon-menu"></i>
+              <span slot="title">全部列表</span>
+          </el-menu-item>
+            <el-menu-item route="/menu/tx_category" index="/menu/tx_category">
+              <i class="el-icon-menu"></i>
+              <span slot="title">目录管理</span>
+          </el-menu-item>
+          <el-menu-item route="/menu/tx_editor" index="/menu/tx_editor">
+              <i class="el-icon-menu"></i>
+              <span slot="title">编辑器</span>
+          </el-menu-item>
+          </el-submenu>
         </el-menu>
     </el-aside>
     <el-main>
