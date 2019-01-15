@@ -24,11 +24,11 @@
             </template>
             <el-menu-item route="/menu/tx_list" index="/menu/tx_list">
               <i class="el-icon-menu"></i>
-              <span slot="title">全部列表</span>
+              <span slot="title">列表</span>
           </el-menu-item>
             <el-menu-item route="/menu/tx_category" index="/menu/tx_category">
               <i class="el-icon-menu"></i>
-              <span slot="title">目录管理</span>
+              <span slot="title">目录</span>
           </el-menu-item>
           <el-menu-item route="/menu/tx_editor" index="/menu/tx_editor">
               <i class="el-icon-menu"></i>
@@ -43,7 +43,7 @@
   </el-container>
 </el-container>
 </template>
-<style>
+<style scoped>
 .el-header {
   background-color: #b3c0d1;
   color: #333;

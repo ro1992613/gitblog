@@ -8,13 +8,13 @@
     <div style="margin-bottom:10px;">
       <el-row>
         <el-col :span="4">
-          <el-select v-model="inputdata.type" @change="typeChange" placeholder="请选择类型">
+          <el-select :disabled="inputStatus.type" v-model="inputdata.type" @change="typeChange" placeholder="请选择类型">
             <el-option label="公共" value="public"></el-option>
             <el-option label="私有" value="private"></el-option>
           </el-select>
         </el-col>
         <el-col :span="4">
-          <el-select v-model="inputdata.category" placeholder="请选择">
+          <el-select :disabled="inputStatus.category" v-model="inputdata.category" placeholder="请选择">
             <el-option
               v-for="item in select_categry_list"
               :key="item.category"
@@ -24,7 +24,7 @@
           </el-select>
         </el-col>
         <el-col :span="16">
-          <el-input v-model="title" placeholder="请输入标题"></el-input>
+          <el-input :disabled="inputStatus.title" v-model="title" placeholder="请输入标题"></el-input>
         </el-col>
       </el-row>
     </div>
@@ -57,6 +57,7 @@
 <script>
 import E from "wangeditor";
 import "./cos-js-sdk-v5.min.js";
+var editor;
 var Bucket = "cyp20190111-1251525641";
 var Region = "ap-chengdu";
 var cos = new COS({
@@ -66,6 +67,11 @@ var cos = new COS({
 export default {
   data() {
     return {
+      inputStatus:{
+        type:false,
+        category:false,
+        title:false
+      },
       title: "",
       content: "",
       select_categry_list: [],
@@ -97,9 +103,39 @@ export default {
               thisv.$message(err);
           }else{
               thisv.$message("新增成功");
-            this.$router.push({path:"/menu/tx_list"});
+            thisv.$router.push({path:"/menu/tx_list"});
           }
         });
+      }
+    },
+    initMyEditor(){
+      var params = {
+        Bucket: Bucket /* 必须 */,
+        Region: Region /* 必须 */
+      };
+      if(this.$route.query.key){
+        params.Key=this.$route.query.key;
+        let type=this.$route.query.type;
+        if(type=="private"){
+          this.$data.select_categry_list = this.$data.private_categry_list;
+        }else{
+          this.$data.select_categry_list = this.$data.public_categry_list;
+        }
+        this.$data.inputdata.type = type;
+        this.$data.inputdata.category =this.$route.query.category;
+        this.$data.title=this.$route.query.title;
+
+        this.$data.inputStatus.type=true;
+        this.$data.inputStatus.category=true;
+        this.$data.inputStatus.title=true;
+        cos.getObject(params, function(err, data) {
+            if(err) {
+                console.log(err);
+            } else {
+                editor.txt.html(data.Body);
+            }
+        });
+       
       }
     },
     getcategoryList() {
@@ -141,6 +177,7 @@ export default {
         this_v.$data.private_categry_list = private_rs;
         this_v.select_categry_list = public_rs;
         this_v.$data.inputdata.type = "public";
+        this_v.initMyEditor();
       });
     },
     typeChange() {
@@ -157,7 +194,7 @@ export default {
   mounted() {
     var v = this;
     v.getcategoryList();
-    var editor = new E("#editorElem");
+    editor = new E("#editorElem");
     editor.customConfig.uploadImgShowBase64 = true;
     editor.customConfig.onchange = html => {
       v.$data.content = html;

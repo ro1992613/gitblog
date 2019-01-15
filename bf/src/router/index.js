@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import MainContainer from '../page/index/index.vue';
+import TxMainContainer from '../page/index/tx/tx_index.vue';
 import base from '../base/base';
 import  VueResource  from 'vue-resource'
 
@@ -62,9 +63,39 @@ const menu={
   ]
 }
 
+const tx_index={
+  path:'/view',
+  name:'view',
+  component: TxMainContainer,
+  redirect:'/view/all',
+  children:[
+    {
+      path:'all',
+      name:'all',
+      component: (resolve) => require(['../page/index/tx/view/private_list.vue'], resolve)
+    },
+    {
+      path:'all_view',
+      name:'all_view',
+      component: (resolve) => require(['../page/index/tx/view/private_view.vue'], resolve)
+    },
+    {
+      path:'public',
+      name:'public',
+      component: (resolve) => require(['../page/index/tx/view/public_list.vue'], resolve)
+    },
+    {
+      path:'public_view',
+      name:'public_view',
+      component: (resolve) => require(['../page/index/tx/view/public_view.vue'], resolve)
+    }
+  ]
+}
+
 export default new Router({
   routes: [
     index,
-    menu
+    menu,
+    tx_index
   ]
 })

@@ -10,12 +10,13 @@
     </div>
     <el-table :data="category_list" style="width: 100%">
       <el-table-column type="index" :index="indexMethod" label="序号" width="50"></el-table-column>
-      <el-table-column align="center" prop="type" label="类型"></el-table-column>
+      <el-table-column align="center" prop="typeName" label="类型"></el-table-column>
       <el-table-column align="center" prop="category" label="目录"></el-table-column>
       <el-table-column align="center" prop="title" label="标题"></el-table-column>
       <el-table-column label="操作" width="100">
         <template slot-scope="scope">
           <el-button @click="deleteCategory(scope.row)" type="text" size="small">删除</el-button>
+          <el-button @click="editText(scope.row)" type="text" size="small">编辑</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -61,6 +62,9 @@ export default {
     addText() {
       this.$router.push({path:"/menu/tx_editor"});
     },
+    editText(row){
+      this.$router.push({path:"/menu/tx_editor", query: { key: row.key,category:row.category,type:row.type,title:row.title }});
+    },
     getList() {
       var this_v = this;
       var params = {
@@ -81,7 +85,8 @@ export default {
             el.key = key;
             if (key.indexOf("public/") >= 0) {
               key = key.replace("public/", "");
-              el.type = "公共";
+              el.type = "public";
+              el.typeName = "公共";
               if (key.indexOf("/") >= 0) {
                 el.category = key.substring(0, key.indexOf("/"));
                 el.title=key.substring(key.indexOf("/")+1,key.length);
@@ -89,7 +94,8 @@ export default {
               }
             } else if (key.indexOf("private/") >= 0) {
               key = key.replace("private/", "");
-              el.type = "私有";
+              el.type = "private";
+              el.typeName = "私有";
               if (key.indexOf("/") >= 0) {
                 el.category = key.substring(0, key.indexOf("/"));
                 el.title=key.substring(key.indexOf("/")+1,key.length);
