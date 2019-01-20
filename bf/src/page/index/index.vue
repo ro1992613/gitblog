@@ -6,6 +6,10 @@
   <el-container>
     <el-aside style="width:200px;">
         <el-menu router="true">
+          <el-menu-item route="/view/all" index="/view/all">
+              <i class="el-icon-menu"></i>
+              <span slot="title">新的首页</span>
+          </el-menu-item>
           <el-menu-item route="/menu/list" index="/menu/list">
               <i class="el-icon-menu"></i>
               <span slot="title">博客列表</span>
@@ -34,6 +38,7 @@
               <i class="el-icon-menu"></i>
               <span slot="title">编辑器</span>
           </el-menu-item>
+          
           </el-submenu>
         </el-menu>
     </el-aside>
