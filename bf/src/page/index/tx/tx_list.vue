@@ -41,6 +41,20 @@ export default {
     };
   },
   methods: {
+    initUser(){
+      var user = window.localStorage.getItem("user");
+      if(user && user == this.sysuser){
+        return;
+      }else {
+        var tempuser=window.prompt("提示","输入密码吧！");
+        if(tempuser==this.sysuser){
+          window.localStorage.setItem("user",tempuser);
+          return;
+        }else{
+          this.$router.push({path:"/"});
+        }
+      }
+    },
     deleteCategory(row) {
       var thisv = this;
       cos.deleteObject(
@@ -110,6 +124,7 @@ export default {
   },
   computed: {},
   mounted() {
+    this.initUser();
     this.getList();
   }
 };

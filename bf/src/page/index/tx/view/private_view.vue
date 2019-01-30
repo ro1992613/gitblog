@@ -67,10 +67,16 @@
 import "../cos-js-sdk-v5.min.js";
 var Bucket = "cyp20190111-1251525641";
 var Region = "ap-chengdu";
-var cos = new COS({
+var key={
+  SecretId: "AKIDNDEoAFsUFLL95otDNL5tGOK17PelmpQs",
+  SecretKey: "Pq20vuqjaGn7DPPAg0A6nOllaS8alupB"
+}
+var private_key={
   SecretId: "AKID2qOioeydrqa5LMkEn6AzYsNddMtBsfXB",
   SecretKey: "Z6OVO1PYT9cqsxqUu6FApHbfU4PVheLo"
-});
+}
+
+var cos = new COS(key);
 export default {
   data() {
     return {
@@ -82,7 +88,7 @@ export default {
   },
   methods: {
       to_public(){
-          this.$router.push({path:"/view/all"});
+          this.$router.back(-1);
       },
       to_private(){
           this.$router.push({path:"/view/private"});

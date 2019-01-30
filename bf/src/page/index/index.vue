@@ -10,6 +10,10 @@
               <i class="el-icon-menu"></i>
               <span slot="title">新的首页</span>
           </el-menu-item>
+          <el-submenu index="/menu/list">
+            <template slot="title">
+              <i class="el-icon-menu"></i>旧的博客（需后台）
+            </template>
           <el-menu-item route="/menu/list" index="/menu/list">
               <i class="el-icon-menu"></i>
               <span slot="title">博客列表</span>
@@ -22,9 +26,11 @@
               <i class="el-icon-menu"></i>
               <span slot="title">新增博客</span>
           </el-menu-item>
+
+          </el-submenu>
           <el-submenu index="/menu/tx_list">
             <template slot="title">
-              <i class="el-icon-menu"></i>腾讯云
+              <i class="el-icon-menu"></i>腾讯云后台
             </template>
             <el-menu-item route="/menu/tx_list" index="/menu/tx_list">
               <i class="el-icon-menu"></i>
