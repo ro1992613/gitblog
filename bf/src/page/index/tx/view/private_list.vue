@@ -2,11 +2,11 @@
   <div class="main">
     
     <div class="right_c">
-        <el-carousel trigger="click" height="350px">
+        <!-- <el-carousel trigger="click" height="350px">
             <el-carousel-item v-for="item in img_urls" :key="item">
                 <img class="img_c" :src="item"/>
             </el-carousel-item>
-        </el-carousel>
+        </el-carousel> -->
       <el-card shadow="never" style="text-align: left;margin: 2px auto;">
         <div slot="header" class="clearfix">
           <span>文章列表</span>
@@ -192,6 +192,7 @@ export default {
             el.size = v.Size;
             el.tag = v.ETag;
             el.date = v.LastModified;
+            el.index = new Date(v.LastModified).getTime()/1000;
             if (key.indexOf("public/") >= 0) {
               key = key.replace("public/", "");
               el.type = "public";
@@ -213,6 +214,9 @@ export default {
             }
           });
         }
+        rs.sort((a,b)=>{
+          return b.index-a.index;
+        });
         this_v.$data.category_list = rs;
         this_v.$data.filter_list = rs;
         this_v.initList();
