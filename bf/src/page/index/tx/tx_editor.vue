@@ -214,6 +214,7 @@ export default {
     editor.customConfig.onchange = html => {
       v.$data.content = html;
     };
+    editor.customConfig.zIndex = 10
     editor.create();
   }
 };

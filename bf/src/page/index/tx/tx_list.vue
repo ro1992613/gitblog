@@ -10,9 +10,10 @@
     </div>
     <el-table :data="category_list" style="width: 100%">
       <el-table-column type="index" :index="indexMethod" label="序号" width="50"></el-table-column>
-      <el-table-column align="center" prop="typeName" label="类型"></el-table-column>
-      <el-table-column align="center" prop="category" label="目录"></el-table-column>
-      <el-table-column align="center" prop="title" label="标题"></el-table-column>
+      <el-table-column align="center" prop="typeName" label="类型" sortable></el-table-column>
+      <el-table-column align="center" prop="category" label="目录" :filters="category_filters" :filter-method="filterHandler" sortable></el-table-column>
+      <el-table-column align="center" prop="title" label="标题" sortable></el-table-column>
+      <el-table-column align="center" prop="date" label="日期" sortable></el-table-column>
       <el-table-column label="操作" width="100">
         <template slot-scope="scope">
           <el-button @click="deleteCategory(scope.row)" type="text" size="small">删除</el-button>
@@ -34,6 +35,7 @@ export default {
   data() {
     return {
       category_list: [],
+      category_filters:[],
       inputdata: {
         type: "",
         category: ""
@@ -87,6 +89,8 @@ export default {
       };
       cos.getBucket(params, function(err, data) {
         let rs = [];
+        let filters = [];
+        let set=new Set();
         if (err) {
           console.log(err);
         } else {
@@ -97,6 +101,10 @@ export default {
             }
             let el = {};
             el.key = key;
+            el.size = v.Size;
+            el.tag = v.ETag;
+            el.date = v.LastModified;
+            el.index = new Date(v.LastModified).getTime()/1000;
             if (key.indexOf("public/") >= 0) {
               key = key.replace("public/", "");
               el.type = "public";
@@ -116,10 +124,22 @@ export default {
                 rs.push(el);
               }
             }
+            if(el.category && !set.has(el.category)){
+              set.add(el.category)
+              filters.push({'text':el.category,'value':el.category})
+            }
           });
         }
+        rs.sort((a,b)=>{
+          return b.index-a.index;
+        });
+        this_v.$data.category_filters= filters;
         this_v.$data.category_list = rs;
       });
+    },
+    filterHandler(value, row, column) {
+      const property = column['property'];
+      return row[property] === value;
     }
   },
   computed: {},

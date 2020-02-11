@@ -50,8 +50,6 @@
             <el-button size="mini">{{item.date}}</el-button>
             <el-button size="mini" @click="setFilters(item.type)" type="success">{{item.typeName}}</el-button>
             <el-button size="mini" @click="setFilters(item.category)" type="info">{{item.category}}</el-button>
-            <el-button size="mini" type="warning">{{item.size}}</el-button>
-            <el-button size="mini" type="danger">{{item.tag}}</el-button>
           </div>
         </el-card>
       </el-card>
@@ -92,10 +90,12 @@
           <span>简介</span>
         </div>
         <div>
-          <p>做过很多个的博客了，发现自己做博客最大的问题就是，没服务器！虽然也会买一些云服务器，但是还是觉得好贵啊！</p>
-          <p>后来听说可以用github做博客，自己也折腾过hexo之类的东东，但始终用起来很不爽！毕竟是别人定制的东西，很多diy的地方都不是那么尽人意！</p>
-          <p>所以最后决定自己写一个，反正git的页面就是些静态页面呗！自己写个内容管理系统还不是手到擒来！后台用springboot很容易就搞定了，数据库在几番研究后使用了非常轻量的嵌入式数据库，h2！然后数据移植的问题也搞定了！用vue随意搭了个管理页面，写上几个模板，新鲜出炉的gitblog就做好了！</p>
-          <p>接下来，优化模板的样式，增加标签功能，把管理页面嵌入博客，加入评论！！！！</p>
+          <p>
+            静态页面+腾讯云的对象存储！基本上够用了！
+          </p>
+          <p>
+            兴趣的话可以看下面的链接
+          </p>
         </div>
         <a target="_blank" href="https://github.com/ro1992613/gitblog">查看更多</a>
       </el-card>
@@ -169,7 +169,9 @@ export default {
         }
     },
     findArticle(key) {
-      this.$router.push({ path: "/view/all_view", query: { key: key } });
+      //this.$router.push({ path: "/view/all_view", query: { key: key } });
+      let routes = this.$router.resolve({ path: "/view/all_view", query: { key: key }});
+      window.open(routes.href, "_blank");
     },
     getList() {
       var this_v = this;
@@ -224,15 +226,14 @@ export default {
     },
     setFilters(search_key) {
       this.$data.search_key = search_key;
+      this.$data.page_index=1;
       this.filterList();
     },
     filterList() {
       if (this.$data.search_key) {
         let rs = [];
         this.$data.category_list.map(v => {
-          console.log(v);
           if (v.key.indexOf(this.$data.search_key) > -1) {
-            console.log("push" + v);
             rs.push(v);
           }
         });
@@ -263,11 +264,11 @@ export default {
   },
   computed: {},
   mounted() {
-      this.$data.img_urls=[];
-    for(var i=0;i<=5;i++){
-        let url="https://uploadbeta.com/api/pictures/random/?key=BingEverydayWallpaperPicture&s=";
-        this.$data.img_urls.push(url+i);
-    }
+    //   this.$data.img_urls=[];
+    // for(var i=0;i<=5;i++){
+    //     let url="https://uploadbeta.com/api/pictures/random/?key=BingEverydayWallpaperPicture&s=";
+    //     this.$data.img_urls.push(url+i);
+    // }
     this.getList();
   }
 };
